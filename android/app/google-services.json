@@ -1,0 +1,30 @@
+{
+  "project_info": {
+    "project_number": "299412323226",
+    "firebase_url": "https://smart-education-007-2cfe0-default-rtdb.firebaseio.com",
+    "project_id": "smart-education-007-2cfe0",
+    "storage_bucket": "smart-education-007-2cfe0.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:299412323226:android:c7bf7684bc80ee4078d823",
+        "android_client_info": {
+          "package_name": "com.niter.smartEducationApp.smart_education_app"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBR93gT0dggfZbhfWi7AG74cwf0tML5wMU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

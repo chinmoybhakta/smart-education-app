@@ -1,0 +1,4 @@
+#Sat Feb 01 12:12:39 BDT 2025
+base.0=/media/chini007/DATA/Document/Flutter/flutter_projects/smart_education_system/SmartEducationApp/build/app/intermediates/dex/release/minifyReleaseWithR8/classes.dex
+path.0=classes.dex
+renamed.0=classes.dex

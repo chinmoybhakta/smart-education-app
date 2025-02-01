@@ -1,0 +1,18 @@
+<lint-module
+    format="1"
+    dir="/media/chini007/DATA/Document/Flutter/flutter_projects/smart_education_system/SmartEducationApp/android/app"
+    name=":app"
+    type="APP"
+    maven="android:app:"
+    agpVersion="8.1.0"
+    buildFolder="/media/chini007/DATA/Document/Flutter/flutter_projects/smart_education_system/SmartEducationApp/build/app"
+    bootClassPath="/home/chini007/Android/Sdk/platforms/android-34/android.jar:/home/chini007/Android/Sdk/build-tools/33.0.1/core-lambda-stubs.jar"
+    javaSourceLevel="1.8"
+    compileTarget="android-34">
+  <lintOptions
+      abortOnError="true"
+      absolutePaths="true"
+      checkReleaseBuilds="true"
+      explainIssues="true"/>
+  <variant name="release"/>
+</lint-module>
