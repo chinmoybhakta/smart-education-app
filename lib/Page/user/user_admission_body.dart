@@ -96,8 +96,7 @@ class _user_admissionState extends State<user_admission> {
                   DataColumn(label: Text('No')),
                   DataColumn(label: Text('Institute Name')),
                   DataColumn(label: Text('Subject')),
-                  DataColumn(label: Text('Required'
-                      ' CGPA')),
+                  DataColumn(label: Text('Required CGPA')),
                   DataColumn(label: Text('Apply')),
                 ],
                 rows: filteredStudents.map((versity) {
@@ -115,14 +114,18 @@ class _user_admissionState extends State<user_admission> {
                                 content: Text("No Seat Available", style: TextStyle(color: Colors.red),)
                             ));
                           }
-                          else if(versity["seat"] != 0 && StudentResult["eligible"] == "" &&
-                              versity["cgpa"] <= StudentResult["CGPA"] &&
+                          else if(StudentResult["eligible"] != "") {
+                            ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                                content: Text("You are already eligible for an institute", style: TextStyle(color: Colors.red),)
+                            ));
+                          }
+                          else if(versity["cgpa"] <= StudentResult["CGPA"] &&
                               StudentTenResult["${versity["sub01"]}"] >= versity["sub01_gpa"] &&
                               StudentTenResult["${versity["sub02"]}"] >= versity["sub02_gpa"] &&
                               StudentTenResult["${versity["sub03"]}"] >= versity["sub03_gpa"]) {
                             final Versity_Ref = database.child("Admission/${versity["NodeNumber"]}/");
                             final Result_Ref = database.child("Result/${node}/");
-                            
+
                             await Versity_Ref.update({"seat": versity["seat"] - 1});
                             await Result_Ref.update({"eligible" : versity["institute"] + " " + versity["subject"]});
                             setState(() {

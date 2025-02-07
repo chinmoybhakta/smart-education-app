@@ -73,6 +73,7 @@ class _homeState extends State<home> {
                     onTap: (){
                       setState(() {
                         selected_screen = 0;
+                        Navigator.pop(context);
                       });
                     },
                   ),
@@ -82,6 +83,7 @@ class _homeState extends State<home> {
                     onTap: (){
                       setState(() {
                         selected_screen = 1;
+                        Navigator.pop(context);
                       });
                     },
                   ),
@@ -91,6 +93,7 @@ class _homeState extends State<home> {
                     onTap: (){
                       setState(() {
                         selected_screen = 2;
+                        Navigator.pop(context);
                       });
                     },
                   ),
