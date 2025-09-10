@@ -47,9 +47,9 @@ class DefaultFirebaseOptions {
   }
 
   static const FirebaseOptions web = FirebaseOptions(
-    apiKey: 'AIzaSyD-CIdWnIlsZ1F38hCS0DxnpOSnDnnJwsU',
-    appId: '1:299412323226:web:aee5a90a2d20325e78d823',
-    messagingSenderId: '299412323226',
+    apiKey: 'API KEY',
+    appId: 'APP ID',
+    messagingSenderId: 'SENDER ID',
     projectId: 'smart-education-007-2cfe0',
     authDomain: 'smart-education-007-2cfe0.firebaseapp.com',
     databaseURL: 'https://smart-education-007-2cfe0-default-rtdb.firebaseio.com',
