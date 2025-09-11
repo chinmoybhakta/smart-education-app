@@ -6,6 +6,8 @@ final studentNodeProvider = StateProvider<int>((ref)=>0);
 
 final selectedScreenProvider = StateProvider<int>((ref)=> 0);
 
+final isLoadingProvider = StateProvider<bool>((ref)=> false);
+
 final studentStatusListProvider = StateProvider<List<Map<String, dynamic>>>((ref)=> []);
 
 //SEARCHING PART

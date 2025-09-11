@@ -2,8 +2,6 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../admin_flow/provider/toggle_provider.dart';
 
-final selectedScreenProvider = StateProvider<int>((ref)=> 0);
-
 final userIsLoading = StateProvider<bool>((ref)=>false);
 final userSelectedScreenProvider = StateProvider((ref)=>0);
 

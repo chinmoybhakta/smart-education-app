@@ -1,10 +1,8 @@
 import 'package:go_router/go_router.dart';
 import 'package:smart_edu_again/src/core/routes/route_constant.dart';
 import 'package:smart_edu_again/src/feature/admin_flow/widget/result_update_form_one.dart';
-
 import '../../feature/admin_flow/admin_home_page.dart';
 import '../../feature/admin_flow/widget/enroll_university.dart';
-import '../../feature/admin_flow/widget/result_update.dart';
 import '../../feature/admin_flow/widget/result_update_form_two.dart';
 import '../../feature/admin_flow/widget/signup_body.dart';
 import '../../feature/admin_flow/widget/status_body.dart';

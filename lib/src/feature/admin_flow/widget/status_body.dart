@@ -17,11 +17,12 @@ class status extends ConsumerStatefulWidget {
 
 class _statusState extends ConsumerState<status> {
   final DatabaseReference database = FirebaseDatabase.instance.ref();
-  TextEditingController searchController = TextEditingController();
+  late TextEditingController searchController;
 
   @override
   void initState() {
-    readData();
+    searchController = TextEditingController();
+    Future.microtask(() => readData());
     super.initState();
   }
 
@@ -34,6 +35,7 @@ class _statusState extends ConsumerState<status> {
 
   //READ
   void readData() async {
+    ref.read(isLoadingProvider.notifier).state = true;
     try {
       DataSnapshot snapshot = await database.child("Student").get();
 
@@ -55,6 +57,9 @@ class _statusState extends ConsumerState<status> {
       }
     } catch (e) {
       debugPrint("Error fetching data: $e");
+    }
+    finally{
+      ref.read(isLoadingProvider.notifier).state = false;
     }
   }
 

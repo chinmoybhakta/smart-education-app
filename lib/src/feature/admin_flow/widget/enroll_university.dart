@@ -17,19 +17,49 @@ class enroll extends ConsumerStatefulWidget {
 }
 
 class _admissionState extends ConsumerState<enroll> {
-  final database = FirebaseDatabase.instance.ref();
+  late TextEditingController InstituteCon;
+  late TextEditingController SubjectCon;
+  late TextEditingController SeatCon;
+  late TextEditingController CGPACon;
+  late SmartDropdownController Sub01Con;
+  late SmartDropdownController Sub02Con;
+  late SmartDropdownController Sub03Con;
+  late TextEditingController Sub01GPACon;
+  late TextEditingController Sub02GPACon;
+  late TextEditingController Sub03GPACon;
+
+  @override
+  void initState() {
+    InstituteCon = TextEditingController();
+    SubjectCon = TextEditingController();
+    SeatCon = TextEditingController();
+    CGPACon = TextEditingController();
+    Sub01Con = SmartDropdownController();
+    Sub02Con = SmartDropdownController();
+    Sub03Con = SmartDropdownController();
+    Sub01GPACon = TextEditingController();
+    Sub02GPACon = TextEditingController();
+    Sub03GPACon = TextEditingController();
+
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    InstituteCon.dispose();
+    SubjectCon.dispose();
+    SeatCon.dispose();
+    CGPACon.dispose();
+    Sub01Con.dispose();
+    Sub02Con.dispose();
+    Sub03Con.dispose();
+    Sub01GPACon.dispose();
+    Sub02GPACon.dispose();
+    Sub03GPACon.dispose();
+    super.dispose();
+  }
   @override
   Widget build(BuildContext context) {
-    TextEditingController InstituteCon = TextEditingController();
-    TextEditingController SubjectCon = TextEditingController();
-    TextEditingController SeatCon = TextEditingController();
-    TextEditingController CGPACon = TextEditingController();
-    SmartDropdownController Sub01Con = SmartDropdownController();
-    SmartDropdownController Sub02Con = SmartDropdownController();
-    SmartDropdownController Sub03Con = SmartDropdownController();
-    TextEditingController Sub01GPACon = TextEditingController();
-    TextEditingController Sub02GPACon = TextEditingController();
-    TextEditingController Sub03GPACon = TextEditingController();
 
     final filteredVerisities = ref.watch(filteredVersitiesProvider);
     return SingleChildScrollView(
