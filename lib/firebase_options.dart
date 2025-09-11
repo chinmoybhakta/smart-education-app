@@ -47,9 +47,9 @@ class DefaultFirebaseOptions {
   }
 
   static const FirebaseOptions web = FirebaseOptions(
-    apiKey: 'AIzaSyD-CIdWnIlsZ1F38hCS0DxnpOSnDnnJwsU',
-    appId: '1:299412323226:web:aee5a90a2d20325e78d823',
-    messagingSenderId: '299412323226',
+    apiKey: 'API KEY',
+    appId: 'APP ID',
+    messagingSenderId: 'SENDER ID',
     projectId: 'smart-education-007-2cfe0',
     authDomain: 'smart-education-007-2cfe0.firebaseapp.com',
     databaseURL: 'https://smart-education-007-2cfe0-default-rtdb.firebaseio.com',
@@ -58,18 +58,18 @@ class DefaultFirebaseOptions {
   );
 
   static const FirebaseOptions android = FirebaseOptions(
-    apiKey: 'AIzaSyBR93gT0dggfZbhfWi7AG74cwf0tML5wMU',
-    appId: '1:299412323226:android:c7bf7684bc80ee4078d823',
-    messagingSenderId: '299412323226',
+    apiKey: 'API KEY',
+    appId: 'APP ID',
+    messagingSenderId: 'SENDER ID',
     projectId: 'smart-education-007-2cfe0',
     databaseURL: 'https://smart-education-007-2cfe0-default-rtdb.firebaseio.com',
     storageBucket: 'smart-education-007-2cfe0.firebasestorage.app',
   );
 
   static const FirebaseOptions ios = FirebaseOptions(
-    apiKey: 'AIzaSyAn1zLMESE5XjFAx4DlvzG5m8S-Sot-ybs',
-    appId: '1:299412323226:ios:f475f9708fa425fa78d823',
-    messagingSenderId: '299412323226',
+    apiKey: 'IOS API KEY',
+    appId: 'IOS APP ID',
+    messagingSenderId: 'SENDER ID',
     projectId: 'smart-education-007-2cfe0',
     databaseURL: 'https://smart-education-007-2cfe0-default-rtdb.firebaseio.com',
     storageBucket: 'smart-education-007-2cfe0.firebasestorage.app',
