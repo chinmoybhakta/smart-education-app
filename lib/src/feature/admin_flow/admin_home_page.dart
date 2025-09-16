@@ -10,87 +10,25 @@ import 'package:smart_edu_again/src/feature/admin_flow/widget/signup_body.dart';
 import 'package:smart_edu_again/src/feature/admin_flow/widget/status_body.dart';
 import '../../core/routes/route_constant.dart';
 import '../common_widget/smart_drawer.dart';
-import '../user_flow/provider/toggle_provider.dart';
 
-class AdminHomePage extends ConsumerStatefulWidget {
+class AdminHomePage extends ConsumerWidget {
 
   const AdminHomePage({super.key});
 
   @override
-  ConsumerState<AdminHomePage> createState() => _AdminHomePageState();
-}
-
-class _AdminHomePageState extends ConsumerState<AdminHomePage> {
-
-  final DatabaseReference database = FirebaseDatabase.instance.ref();
-
-  @override
-  void initState() {
-    Future.microtask(()=>readData());
-    super.initState();
-  }
-
-  Future<void>readData() async{
-    ref.read(isLoadingProvider.notifier).state = true;
-    try {
-      DataSnapshot snapshot1 = await database.child("Student").get();
-
-      if (snapshot1.exists && snapshot1.value != null) {
-        final data = snapshot1.value;
-
-        if (data is List) {
-          List<Map<String, dynamic>> studentList = [];
-          for (int i = 0; i < data.length; i++) {
-            if (data[i] != null) {
-              Map<String, dynamic> student = Map<String, dynamic>.from(data[i]);
-              student['NodeNumber'] = i;
-              studentList.add(student);
-            }
-          }
-
-          ref.read(studentStatusListProvider.notifier).state = studentList;
-        }
-
-        DataSnapshot snapshot2 = await database.child("Admission/").get();
-
-        if (snapshot2.exists && snapshot2.value != null) {
-          final data = snapshot2.value;
-
-          if (data is List) {
-            List<Map<String, dynamic>> versityList = [];
-            for (int i = 0; i < data.length; i++) {
-              if (data[i] != null) {
-                Map<String, dynamic> versity = Map<String, dynamic>.from(data[i]);
-                versity['NodeNumber'] = i;
-                versityList.add(versity);
-              }
-            }
-            ref.read(versityListProvider.notifier).state = versityList;
-          }
-        }
-      }
-    } catch (e) {
-      debugPrint("Error fetching data: $e");
-    }
-    finally{
-      ref.read(isLoadingProvider.notifier).state = false;
-    }
-  }
-
-  @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     final screens = [
       const status(),
       const signup(),
       const enroll()
-      ];
+    ];
     final selectedScreen = ref.watch(selectedScreenProvider);
     return Scaffold(
       appBar: AppBar(
-        leading: Builder(builder: (context)=>IconButton(onPressed: (){
-          Scaffold.of(context).openDrawer();
-        }, key: const Key("Drawer Menu"),icon: const Icon(Icons.menu)),),
-        title: const Text("A New Beginning")
+          leading: Builder(builder: (context)=>IconButton(onPressed: (){
+            Scaffold.of(context).openDrawer();
+          }, key: const Key("Drawer Menu"),icon: const Icon(Icons.menu)),),
+          title: const Text("A New Beginning")
       ),
       drawer: Drawer(
         child: Column(
@@ -171,10 +109,10 @@ class _AdminHomePageState extends ConsumerState<AdminHomePage> {
           ],
         ),
       ),
-        body: SingleChildScrollView(child: Padding(
-          padding: AppPadding.horizontalPadding,
-          child: screens[selectedScreen],
-        )),
+      body: SingleChildScrollView(child: Padding(
+        padding: AppPadding.horizontalPadding,
+        child: screens[selectedScreen],
+      )),
     );
   }
 }

@@ -3,6 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import '../../auth_screen/provider/toggle_provider.dart';
 import '../../common_widget/smart_button.dart';
 import '../../common_widget/smart_dropdowns.dart';
 import '../../../core/service/firebase_service/insert.dart';
@@ -40,7 +41,7 @@ class _admissionState extends ConsumerState<enroll> {
     Sub01GPACon = TextEditingController();
     Sub02GPACon = TextEditingController();
     Sub03GPACon = TextEditingController();
-
+    Future.microtask(()=>readInstitute());
     super.initState();
   }
 
@@ -58,16 +59,48 @@ class _admissionState extends ConsumerState<enroll> {
     Sub03GPACon.dispose();
     super.dispose();
   }
+
+  Future<void> readInstitute() async{
+    ref.read(isLoadingProvider.notifier).state = true;
+    Future.delayed(const Duration(seconds: 5));
+
+    DataSnapshot snapshot2 = await database.child("Admission/").get();
+
+    try{
+      if (snapshot2.exists && snapshot2.value != null) {
+        final data = snapshot2.value;
+
+        if (data is List) {
+          List<Map<String, dynamic>> versityList = [];
+          for (int i = 0; i < data.length; i++) {
+            if (data[i] != null) {
+              Map<String, dynamic> versity = Map<String, dynamic>.from(data[i]);
+              versity['NodeNumber'] = i;
+              versityList.add(versity);
+            }
+          }
+          ref
+              .read(versityListProvider.notifier)
+              .state = versityList;
+        }
+      }
+    }catch (e) {
+      debugPrint("Error fetching data: $e");
+    }
+    finally{
+      ref.read(isLoadingProvider.notifier).state = false;
+    }
+  }
   @override
   Widget build(BuildContext context) {
-
+    final loadingState = ref.watch(isLoadingProvider);
     final filteredVerisities = ref.watch(filteredVersitiesProvider);
     return SingleChildScrollView(
       child: Column(
         children: [
           Text("Enrolled Institutes", style: Theme.of(context).textTheme.titleLarge),
           SizedBox(height: 10.h,),
-          SingleChildScrollView(
+          loadingState ? const CircularProgressIndicator() : SingleChildScrollView(
             scrollDirection: Axis.horizontal, // Allow horizontal scrolling if necessary
             child: DataTable(
               columns: const [
@@ -178,7 +211,7 @@ class _admissionState extends ConsumerState<enroll> {
           SizedBox(height: 10.h,),
           SmartTextfield(hintText: "Required Subject 03 GPA", controller: Sub03GPACon),
           SizedBox(height: 30.h,),
-          SmartButton(label: "Confirm Enroll", onPressed: () {
+          SmartButton(label: "Confirm Enroll", onPressed: () async {
             if(InstituteCon.text.isEmpty || SubjectCon.text.isEmpty || SeatCon.text.isEmpty || CGPACon.text.isEmpty || Sub01GPACon.text.isEmpty || Sub02GPACon.text.isEmpty || Sub03GPACon.text.isEmpty){
               if(!mounted) return;
               ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
@@ -198,10 +231,11 @@ class _admissionState extends ConsumerState<enroll> {
                 "sub03": Sub03Con.value.toString(),
                 "sub03_gpa": double.parse(Sub03GPACon.text),
               };
-              updateVersity(versityData);
+              await updateVersity(versityData);
+              await readInstitute();
               if(!mounted) return;
               ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-                  content: Text("Successfully logged in", style: TextStyle(color: Colors.green),)
+                  content: Text("Successfully added", style: TextStyle(color: Colors.green),)
               ));
             }
             InstituteCon.clear();

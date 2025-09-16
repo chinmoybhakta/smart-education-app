@@ -34,7 +34,7 @@ class _statusState extends ConsumerState<status> {
   }
 
   //READ
-  void readData() async {
+  Future<void> readData() async {
     ref.read(isLoadingProvider.notifier).state = true;
     try {
       DataSnapshot snapshot = await database.child("Student").get();
@@ -97,34 +97,34 @@ class _statusState extends ConsumerState<status> {
   }
 
   Future<void> showConfirmationDialog(
-    BuildContext context,
-    Map<String, dynamic> student,
-    ref,
-  ) async {
+      BuildContext context,
+      Map<String, dynamic> student,
+      ref,
+      ) async {
     final result = await showDialog<bool>(
       context: context,
       builder:
           (context) => AlertDialog(
-            title: const Text("Delete Confirmation"),
-            content: Text(
-              "Are you sure you want to delete ${student['Name']}?",
-            ),
-            actions: [
-              TextButton(
-                child: const Text("Cancel"),
-                onPressed: () => context.pop(false),
-              ),
-              TextButton(
-                child: const Text("Yes"),
-                onPressed: () => context.pop(true),
-              ),
-            ],
+        title: const Text("Delete Confirmation"),
+        content: Text(
+          "Are you sure you want to delete ${student['Name']}?",
+        ),
+        actions: [
+          TextButton(
+            child: const Text("Cancel"),
+            onPressed: () => context.pop(false),
           ),
+          TextButton(
+            child: const Text("Yes"),
+            onPressed: () => context.pop(true),
+          ),
+        ],
+      ),
     );
 
     if (result == true) {
       deleteStudent(student, ref);
-      readData();
+      await readData();
     }
   }
 
@@ -155,7 +155,7 @@ class _statusState extends ConsumerState<status> {
           SizedBox(height: 16.h),
           SingleChildScrollView(
             scrollDirection:
-                Axis.horizontal, // Allow horizontal scrolling if necessary
+            Axis.horizontal, // Allow horizontal scrolling if necessary
             child: DataTable(
               columns: const [
                 DataColumn(label: Text('No')),
@@ -165,57 +165,57 @@ class _statusState extends ConsumerState<status> {
                 DataColumn(label: Text('Delete')),
               ],
               rows:
-                  filteredStudentList.map((student) {
-                    return DataRow(
-                      cells: [
-                        DataCell(Text(student['NodeNumber'].toString())),
-                        DataCell(Text(student['Name'])),
-                        DataCell(Text(student['Class'])),
-                        DataCell(
-                          IconButton(
-                            icon: const Icon(Icons.edit),
-                            onPressed: () async {
-                              ref.read(studentNodeProvider.notifier).state =
-                                  student["NodeNumber"].toInt();
-                              ref.read(studentInfoProvider.notifier).state =
-                                  student;
+              filteredStudentList.map((student) {
+                return DataRow(
+                  cells: [
+                    DataCell(Text(student['NodeNumber'].toString())),
+                    DataCell(Text(student['Name'])),
+                    DataCell(Text(student['Class'])),
+                    DataCell(
+                      IconButton(
+                        icon: const Icon(Icons.edit),
+                        onPressed: () async {
+                          ref.read(studentNodeProvider.notifier).state =
+                              student["NodeNumber"].toInt();
+                          ref.read(studentInfoProvider.notifier).state =
+                              student;
 
-                              if (student['Class'] == 'admission') {
-                                if (!context.mounted) return;
-                                ScaffoldMessenger.of(context).showSnackBar(
-                                  SnackBar(
-                                    content: Text(
-                                      "${student["Name"]} has passed all classes. Its time for admit a desired university/institute",
-                                      style: const TextStyle(
-                                        color: Colors.indigoAccent,
-                                      ),
-                                    ),
+                          if (student['Class'] == 'admission') {
+                            if (!context.mounted) return;
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              SnackBar(
+                                content: Text(
+                                  "${student["Name"]} has passed all classes. Its time for admit a desired university/institute",
+                                  style: const TextStyle(
+                                    color: Colors.indigoAccent,
                                   ),
-                                );
-                              } else if (student['Class'] == "one" ||
-                                  student['Class'] == "two" ||
-                                  student['Class'] == "three" ||
-                                  student['Class'] == "four") {
-                                await context.push(RouteConst.resultUpdate1);
-                              } else {
-                                await context.push(RouteConst.resultUpdate2);
-                              }
+                                ),
+                              ),
+                            );
+                          } else if (student['Class'] == "one" ||
+                              student['Class'] == "two" ||
+                              student['Class'] == "three" ||
+                              student['Class'] == "four") {
+                            await context.push(RouteConst.resultUpdate1);
+                          } else {
+                            await context.push(RouteConst.resultUpdate2);
+                          }
 
-                              readData();
-                            },
-                          ),
-                        ),
-                        DataCell(
-                          IconButton(
-                            icon: const Icon(Icons.delete),
-                            onPressed: () {
-                              showConfirmationDialog(context, student, ref);
-                            },
-                          ),
-                        ),
-                      ],
-                    );
-                  }).toList(),
+                          await readData();
+                        },
+                      ),
+                    ),
+                    DataCell(
+                      IconButton(
+                        icon: const Icon(Icons.delete),
+                        onPressed: () {
+                          showConfirmationDialog(context, student, ref);
+                        },
+                      ),
+                    ),
+                  ],
+                );
+              }).toList(),
             ),
           ),
         ],

@@ -8,24 +8,66 @@ import '../../common_widget/smart_datepicker.dart';
 import '../../common_widget/smart_dropdowns.dart';
 import '../../common_widget/smart_textfield.dart';
 
-class signup extends StatelessWidget {
+class signup extends StatefulWidget {
   const signup({super.key});
 
   @override
+  State<signup> createState() => _signupState();
+}
+
+class _signupState extends State<signup> {
+  late TextEditingController name_controller;
+  late TextEditingController birth_controller;
+  late TextEditingController mail_controller;
+  late TextEditingController contact_controller;
+  late TextEditingController guardian_name_controller;
+  late SmartDropdownController guardian_relation_controller;
+  late TextEditingController guardian_contact_controller;
+  late TextEditingController hobby_controller;
+  late SmartDropdownController nationality_controller;
+  late SmartDropdownController gender_controller;
+  late SmartDropdownController religion_controller;
+  late SmartDropdownController class_controller;
+  late SmartDropdownController fav_sub_controller;
+
+  @override
+  void initState() {
+    name_controller = TextEditingController();
+    birth_controller = TextEditingController();
+    mail_controller = TextEditingController();
+    contact_controller = TextEditingController();
+    guardian_name_controller = TextEditingController();
+    guardian_relation_controller = SmartDropdownController();
+    guardian_contact_controller = TextEditingController();
+    hobby_controller = TextEditingController();
+    nationality_controller = SmartDropdownController();
+    gender_controller = SmartDropdownController();
+    religion_controller = SmartDropdownController();
+    class_controller = SmartDropdownController();
+    fav_sub_controller = SmartDropdownController();
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    name_controller.dispose();
+    birth_controller.dispose();
+    mail_controller.dispose();
+    contact_controller.dispose();
+    guardian_name_controller.dispose();
+    guardian_relation_controller.dispose();
+    guardian_contact_controller.dispose();
+    hobby_controller.dispose();
+    nationality_controller.dispose();
+    gender_controller.dispose();
+    religion_controller.dispose();
+    class_controller.dispose();
+    fav_sub_controller.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
-    TextEditingController name_controller = TextEditingController();
-    TextEditingController birth_controller = TextEditingController();
-    TextEditingController mail_controller = TextEditingController();
-    TextEditingController contact_controller = TextEditingController();
-    TextEditingController guardian_name_controller = TextEditingController();
-    SmartDropdownController guardian_relation_controller = SmartDropdownController();
-    TextEditingController guardian_contact_controller = TextEditingController();
-    TextEditingController hobby_controller = TextEditingController();
-    SmartDropdownController nationality_controller = SmartDropdownController();
-    SmartDropdownController gender_controller = SmartDropdownController();
-    SmartDropdownController religion_controller = SmartDropdownController();
-    SmartDropdownController class_controller = SmartDropdownController();
-    SmartDropdownController fav_sub_controller = SmartDropdownController();
 
     Map<String, dynamic> student = {};
     Map<String, dynamic> result = {};
@@ -57,31 +99,32 @@ class signup extends StatelessWidget {
               SizedBox(
                 height: Height * 0.05,
               ),
-              SmartTextfield(hintText: "Name", controller: name_controller),
+              SmartTextfield(hintText: "Name", controller: name_controller, key: const Key("Name"),),
               SizedBox(
                 height: Height * 0.01,
               ),
               SmartDatepicker(
-                  hintText: "Date of Birth", controller: birth_controller),
+                  hintText: "Date of Birth", controller: birth_controller, key: const Key("Date of Birth"),),
               SizedBox(
                 height: Height * 0.01,
               ),
-              SmartTextfield(hintText: "E-mail", controller: mail_controller),
+              SmartTextfield(hintText: "E-mail", controller: mail_controller, key: const Key("E-mail"),),
               SizedBox(
                 height: Height * 0.01,
               ),
               SmartTextfield(
-                  hintText: "Student Contact", controller: contact_controller),
+                  hintText: "Student Contact", controller: contact_controller, key: const Key("Student Contact"),),
               SizedBox(
                 height: Height * 0.01,
               ),
               SmartTextfield(
                   hintText: "Guardian Name",
-                  controller: guardian_name_controller),
+                  controller: guardian_name_controller, key: const Key("Guardian Name"),),
               SizedBox(
                 height: Height * 0.01,
               ),
               SmartDropdown(
+                  key: const Key("Guardian Relation"),
                   labelText: "Guardian Relation",
                   items: const [
                     "Father",
@@ -98,43 +141,52 @@ class signup extends StatelessWidget {
               ),
               SmartTextfield(
                   hintText: "Guardian Contact",
-                  controller: guardian_contact_controller),
+                  controller: guardian_contact_controller,
+                  key: const Key("Guardian Contact"),),
               SizedBox(
                 height: Height * 0.01,
               ),
-              SmartTextfield(hintText: "Hobby", controller: hobby_controller),
+              SmartTextfield(hintText: "Hobby", controller: hobby_controller, key: const Key("Hobby"),),
               SizedBox(
                 height: Height * 0.01,
               ),
               SmartDropdown(
                   labelText: "Nationality",
                   items: const ["Bangladeshi", "Abroad"],
-                  controller: nationality_controller),
+                  controller: nationality_controller,
+                  key: const Key("Nationality"),
+              ),
               SizedBox(
                 height: Height * 0.01,
               ),
               SmartDropdown(
                   labelText: "Gender",
                   items: const ["Male", "Female", "Others"],
-                  controller: gender_controller),
+                  controller: gender_controller,
+                  key: const Key("Gender"),
+              ),
               SizedBox(
                 height: Height * 0.01,
               ),
               SmartDropdown(
                   labelText: "Religion",
                   items: const ["Islam", "Hinduism", "Buddhism", "Other"],
-                  controller: religion_controller),
+                  controller: religion_controller,
+                  key: const Key("Religion"),
+              ),
               SizedBox(
                 height: Height * 0.01,
               ),
               SmartDropdown(
                   labelText: "Selected Class",
-                  items: ["one", "three", "six", "nine"],
-                  controller: class_controller),
+                  items: const ["one", "three", "six", "nine"],
+                  controller: class_controller,
+                  key: const Key("Selected Class"),),
               SizedBox(
                 height: Height * 0.01,
               ),
               SmartDropdown(
+                key: const Key("Favourite Subject"),
                   labelText: "Favourite Subject",
                   items: const [
                     "Physical Test",

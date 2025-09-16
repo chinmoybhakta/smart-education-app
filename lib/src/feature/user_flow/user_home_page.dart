@@ -37,7 +37,7 @@ class _user_homeState extends ConsumerState<user_home> {
     ref.read(userIsLoading.notifier).state = true;
     try{
       final node = ref.read(studentNodeProvider);
-
+      DataSnapshot snapshot0 = await database.child("Student/$node/").get();
       DataSnapshot snapshot = await database.child("Result/$node/").get();
       DataSnapshot snapshot1 = await database.child("one/$node/").get();
       DataSnapshot snapshot2 = await database.child("two/$node/").get();
@@ -49,6 +49,9 @@ class _user_homeState extends ConsumerState<user_home> {
       DataSnapshot snapshot8 = await database.child("eight/$node/").get();
       DataSnapshot snapshot9 = await database.child("nine/$node/").get();
       DataSnapshot snapshot10 = await database.child("ten/$node/").get();
+      if(snapshot0.exists) {
+        ref.read(studentInfoProvider.notifier).state = Map<String, dynamic>.from(snapshot0.value as Map);
+      }
       if(snapshot.exists) {
         ref.read(studentResultProvider.notifier).state = Map<String, dynamic>.from(snapshot.value as Map);
       }
@@ -107,7 +110,7 @@ class _user_homeState extends ConsumerState<user_home> {
       appBar: AppBar(
           leading: Builder(builder: (context)=>IconButton(onPressed: (){
             Scaffold.of(context).openDrawer();
-          }, icon: const Icon(Icons.menu)),),
+          }, icon: const Icon(Icons.menu),key: const Key("Drawer Menu"),),),
           title: Center(child: SizedBox(height: 60.h,child: const Image(image: AssetImage("assets/book_logo.png")),)),
       ),
       drawer: Drawer(

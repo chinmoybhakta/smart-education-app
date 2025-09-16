@@ -93,8 +93,8 @@ class _LoginPageState extends State<LoginPage> {
                             ));
                           }
                           else {
+                            debugPrint("Invalid Credentials");
                             ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-                              key: Key("INVALID"),
                                 content: Text("Invalid Credentials", style: TextStyle(color: Colors.red),)
                             ));
                             ref.read(isLoadingProvider.notifier).state = true;

@@ -12,7 +12,6 @@ import '../../common_widget/smart_button.dart';
 import '../../common_widget/smart_dropdowns.dart';
 import '../../common_widget/smart_inforow.dart';
 import '../provider/result_provider.dart';
-import '../provider/toggle_provider.dart';
 
 class user_result extends ConsumerWidget {
   const user_result({super.key});
